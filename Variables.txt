@@ -1,0 +1,8 @@
+Lista de variables
+temp actual = actu
+ultima temperatura = utltima
+alpha = alfa
+
+Extras:
+double dx, double dt,
+double bc_0, double bc_1
