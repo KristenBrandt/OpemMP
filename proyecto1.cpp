@@ -18,7 +18,7 @@ int main(int argc, char * argv[]) {
     if (argc == 1)
       {
         printf("Usage: proyecto dX Tl T0 Tr #tasks\n\n");
-        printf("Donde: \n\tdX = Tamaño de intervalos en cm enteros (la vara mide 1000 cm)\n\tTl = Temperatura inicial de la izquierda\n\tT0 = Temperatura inicial de la vara\n\tTr = Temperatura inicial de la derecha\n\ttasks = Cantidad de threads\n");
+        printf("Donde: \n\tdX = Tamaño de intervalos en cm enteros (la vara mide 10000 cm)\n\tTl = Temperatura inicial de la izquierda\n\tT0 = Temperatura inicial de la vara\n\tTr = Temperatura inicial de la derecha\n\ttasks = Cantidad de threads\n");
         exit (1);
       }
     int dX = atoi(argv[1]); // Tamaño de intervalos de la barra
@@ -33,7 +33,10 @@ int main(int argc, char * argv[]) {
     float dif;
 
     //Size of arrays
-    int N = 1000/dX;
+    int N = 10000/dX;
+
+    cout<< "Tamanio de array: "<<N;
+    cout<<endl;
 
     //Variables de iteracion
     int j;
