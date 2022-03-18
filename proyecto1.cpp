@@ -31,7 +31,7 @@ int main(int argc, char * argv[]) {
     float maximo = 1; // Variable de control de salida
 
 
-    //Size of arrays
+    // Calculo de N es la cantidad de intervalos discretos,  el numerador es el largo de la barra y el denominador es el tamaño de las distancias discretas
     int N = 10000/dX;
 
     cout<<"Tamanio de array: "<<N;
@@ -59,12 +59,12 @@ int main(int argc, char * argv[]) {
     float * Ar1 = new float[N];
 
     Ar1[0] = static_cast< float >(Tl);
-    Ar1[N-1] = static_cast< float >(Tr);
+    Ar1[N-1] = static_cast< float >(Tr); // Las temperaturas en los extremos de la vara los introducimos directamente
 
 
     for(i = 1; i < N-1; i++)
     {
-      Ar1[i] = static_cast< float > (T0);
+      Ar1[i] = static_cast< float > (T0); // La temperatura en el resto de la vara lo hacemos por medio de este for
     }
 
   //Inicializar Array 2, que se usa para guardar temporalmente valores de temperatura nuevos
@@ -82,15 +82,15 @@ int main(int argc, char * argv[]) {
 
   //While que evalua criterio de salida
      while (maximo >= e) {
-       maximo = 0.0;
+       maximo = 0.0; // Cada vuelta del while se resetea la variable de control
 
        //for para actualizar la temperatura <- PARALELIZABLE
        #pragma omp parallel for schedule(static)
 
          for (j = 1; j < N-1; j++) {
 
-           Ar2[j] = Ar1[j] + (k*dt/dXpow)*(Ar1[j-1]-2*Ar1[j]+Ar1[j+1]);
-           diferencias[j] = abs(Ar1[j] - Ar2[j]);
+           Ar2[j] = Ar1[j] + (k*dt/dXpow)*(Ar1[j-1]-2*Ar1[j]+Ar1[j+1]); // calculamos nueva temperatura
+           diferencias[j] = abs(Ar1[j] - Ar2[j]); // guardamos dT
 
          }
          // for para actualizar arreglo de respuesta <- PARALELIZABLE
@@ -106,7 +106,7 @@ int main(int argc, char * argv[]) {
         for (q = 1; q < N-1; q++){
 
           if (diferencias[q] > maximo){
-            maximo = diferencias[q];
+            maximo = diferencias[q]; // buscamos max(dT) para determinar si convergio
           }
 
         }
